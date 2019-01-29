@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w"
   },
   "repository": {
     "type": "git",
