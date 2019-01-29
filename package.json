@@ -1,0 +1,25 @@
+{
+  "name": "bigint",
+  "version": "1.0.0",
+  "description": "A BigInteger implementation in Typescript",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surajpulloor/BigInt.git"
+  },
+  "author": "Suraj Pulloor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surajpulloor/BigInt/issues"
+  },
+  "homepage": "https://github.com/surajpulloor/BigInt#readme",
+  "devDependencies": {
+    "jest": "^24.0.0"
+  }
+}
