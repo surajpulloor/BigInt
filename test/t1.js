@@ -1,4 +1,4 @@
-let bI = require('../src/bigint');
+let bI = require('../dist/bigint');
 
 let num1 = new bI.BigInt('504153625');
 let num2 = new bI.BigInt('8000000');
