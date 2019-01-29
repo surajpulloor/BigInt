@@ -161,7 +161,7 @@ export class BigInt {
         return this.resultStr;
     }
 
-    
+    // TODO: Use a fast algorithm to slow to use add()
     public multiply(num2: BigInt) {
         
     }
