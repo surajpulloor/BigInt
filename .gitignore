@@ -1,1 +1,3 @@
 .vscode
+dist/*.js.map
+node_modules
