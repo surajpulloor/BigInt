@@ -4,23 +4,23 @@ let bI = require('../dist/bigint');
 // let num2 = new bI.BigInt('152365214589963258896547125332658965874521452236589895648899856325412154788598521455589632511145785963254111852395475632115698547253622229999998547856923316589');
 
 // test variables
-let num1 = new bI.BigInt('1000');
+let num1 = new bI.BigInt('-1000');
 let num2 = new bI.BigInt('1000000000');
 
 
 // Test #1
 test('Adding num1 + num2', () => {
-    expect(num1.add(num2)).toBe('1000001000');
+    expect(num1.add(num2)).toBe('999999000');
 });
 
 // Test #2
 test('Subtracting num1 - num2', () => {
-    expect(num1.subtract(num2)).toBe('-999999000');
+    expect(num1.subtract(num2)).toBe('-1000001000');
 });
 
 // Test #3
 test('Reverse Subtracting num2 - num1', () => {
-    expect(num2.subtract(num1)).toBe('999999000');
+    expect(num2.subtract(num1)).toBe('1000001000');
 });
 
 // Test #4
