@@ -20,7 +20,7 @@ export class BigIntNumber {
      */
     public initAgain() {
         // Form numArray
-        this._numArray = this.numStr.split('').map((val) => +val);
+        this._numArray = this.numStr.split('').map((val) => val === '-' ? 0 : +val);
 
         // Remove the negative sign from the number
         if (this._signedNumber) {
