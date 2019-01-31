@@ -15,7 +15,7 @@ test('Adding num1 + num2', () => {
 
 // Test #2
 test('Subtracting num1 - num2', () => {
-    expect(num1.subtract(num2)).toBe('999999000');
+    expect(num1.subtract(num2)).toBe('1000001000');
 });
 
 // Test #3
