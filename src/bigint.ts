@@ -47,8 +47,10 @@ export class BigInt {
             }
 
             // if num1 is signed and num2 is signed then the result will be a negative number
-            if (this.num.signedNumber && num2.num.signedNumber) {
+            if (this.num.signedNumber && num2.num.signedNumber) { // both are negative
                 this.result.signedNumber = true;
+            } else { // both are positive
+                this.result.signedNumber = false;
             }
 
 
@@ -102,7 +104,11 @@ export class BigInt {
         if ((!this.num.signedNumber && !num2.num.signedNumber) || // num1 and num2 are positive or num1 and num2 are negative
             ((this.num.signedNumber && num2.num.signedNumber))
         ) {
-            if (this.num.totalNoOfDigits() >= num2.num.totalNoOfDigits()) {
+            // Create two clone bigint objects and make the numbers positive
+            let tempNum1 = new BigInt(this.numStr.replace(/\-+/g, ''));
+            let tempNum2 = new BigInt(num2.numStr.replace(/\-+/g, ''));
+
+            if (tempNum1.greaterThanEqual(tempNum2)) {
                 // Make a shallow copy of num1
                 this.result.numArray = this.num.numArraySlice();
 
@@ -144,16 +150,6 @@ export class BigInt {
 
                     // Set the ith difference
                     this.result.setIthDigit(num1Index, diff);
-                }
-
-                // Set the sign bit
-                if (this.num.signedNumber && num2.num.signedNumber) {
-                    // Create a temp BigInt object
-                    let tempNum2 = new BigInt(num2.numStr.replace(/\-+/g, ''));
-
-                    this.result.signedNumber = this.lessThan(tempNum2) && this.num.signedNumber;
-                } else {
-                    this.result.signedNumber = false;
                 }
 
 
@@ -201,14 +197,17 @@ export class BigInt {
                     this.result.setIthDigit(num2Index, diff);
                 }
 
-                // Set the sign bit
-                if (this.num.signedNumber && num2.num.signedNumber) {
-                    this.result.signedNumber = false;
-                } else {
-                    this.result.signedNumber = true;
-                }
             }
-        } else if (num2.num.signedNumber && !this.num.signedNumber) { // num2 is neagtive
+
+            // Set the sign bit
+            if (this.num.signedNumber && num2.num.signedNumber) { // both are neagtive
+                this.result.signedNumber = tempNum1.greaterThan(tempNum2);
+            } else { // both are positive
+                this.result.signedNumber = tempNum1.lessThan(tempNum2);
+            }
+
+
+        } else if (!this.num.signedNumber && num2.num.signedNumber) { // num2 is neagtive
 
             // Change the signed bit to positive
             num2.num.signedNumber = false;
@@ -220,7 +219,7 @@ export class BigInt {
             num2.num.signedNumber = true;
 
 
-        } else if (!num2.num.signedNumber && this.num.signedNumber) { // num1 is neagtive
+        } else if (this.num.signedNumber && !num2.num.signedNumber) { // num1 is neagtive
 
 
             // Change the signed bit to negative
