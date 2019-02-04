@@ -10,17 +10,17 @@ let num2 = new bI.BigInt('1000000000');
 
 // Test #1
 test('Adding num1 + num2', () => {
-    expect(num1.add(num2)).toBe('1000001000');
+    expect(num1.add(num2).toString()).toBe('1000001000');
 });
 
 // Test #2
 test('Subtracting num1 - num2', () => {
-    expect(num1.subtract(num2)).toBe('-999999000');
+    expect(num1.subtract(num2).toString()).toBe('-999999000');
 });
 
 // Test #3
 test('Reverse Subtracting num2 - num1', () => {
-    expect(num2.subtract(num1)).toBe('999999000');
+    expect(num2.subtract(num1).toString()).toBe('999999000');
 });
 
 // Test #4

@@ -8,15 +8,15 @@ let num2 = new bI.BigInt('-100000');
 
 
 console.time('add');
-console.log('num1 + num2: ' + num1.add(num2));
+console.log('num1 + num2: ' + num1.add(num2).toString());
 console.timeEnd('add');
 
 console.time('subtract');
-console.log('num1 - num2: ' + num1.subtract(num2));
+console.log('num1 - num2: ' + num1.subtract(num2).toString());
 console.timeEnd('subtract');
 
 console.time('reverseSubtract');
-console.log('num2 - num1: ' + num2.subtract(num1));
+console.log('num2 - num1: ' + num2.subtract(num1).toString());
 console.timeEnd('reverseSubtract');
 
 

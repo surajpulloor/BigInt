@@ -5,27 +5,27 @@ let bI = require('../dist/bigint');
 
 // test variables
 let num1 = new bI.BigInt('-1000');
-let num2 = new bI.BigInt('1000000000');
+let num2 = new bI.BigInt('-1000');
 
 
 // Test #1
 test('Adding num1 + num2', () => {
-    expect(num1.add(num2).toString()).toBe('999999000');
+    expect(num1.add(num2).toString()).toBe('-2000');
 });
 
 // Test #2
 test('Subtracting num1 - num2', () => {
-    expect(num1.subtract(num2).toString()).toBe('-1000001000');
+    expect(num1.subtract(num2).toString()).toBe('0');
 });
 
 // Test #3
 test('Reverse Subtracting num2 - num1', () => {
-    expect(num2.subtract(num1).toString()).toBe('1000001000');
+    expect(num2.subtract(num1).toString()).toBe('0');
 });
 
 // Test #4
 test('LessThan num1 < num2', () => {
-    expect(num1.lessThan(num2)).toBe(true);
+    expect(num1.lessThan(num2)).toBe(false);
 });
 
 // Test #5
@@ -40,10 +40,10 @@ test('GreaterThan num1 > num2', () => {
 
 // Test #7
 test('GreaterThanEqual num1 >= num2', () => {
-    expect(num1.greaterThanEqual(num2)).toBe(false);
+    expect(num1.greaterThanEqual(num2)).toBe(true);
 });
 
 // Test #8
 test('Equal num1 == num2', () => {
-    expect(num1.equal(num2)).toBe(false);
+    expect(num1.equal(num2)).toBe(true);
 });
