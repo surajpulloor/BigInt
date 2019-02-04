@@ -82,7 +82,7 @@ export class BigInt {
             let tempNum1 = this.clone();
 
             // We need to remove - before creating tempNum2 object
-            let tempNum2 = this.abs();
+            let tempNum2 = num2.abs();
 
             // Compute the difference
             result = tempNum1.subtract(tempNum2);
