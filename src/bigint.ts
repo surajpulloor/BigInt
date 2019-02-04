@@ -480,9 +480,10 @@ export class BigInt {
         // Convert the numArray to a string and replace the commas with empty string
         let numStr = this.numArray.toString().replace(/,+/g, '');
 
-        // Trim zeros from the beginning
-        numStr = this.trim(numStr, '0');
+        // Check if the result is zero. if it is then return a single zero, else return a trimmed numStr
+        numStr = /^0+$/g.test(numStr) ? '0' : this.trim(numStr, '0');
 
+        
         // Put in the minus sign if the result is negative
         numStr = this.signedNumber ? '-' + numStr : numStr;
 
