@@ -1,5 +1,3 @@
-import { BigIntNumber } from "./bigint_number";
-
 export class BigInt {
     constructor(num: string) {
         // Set the fields
