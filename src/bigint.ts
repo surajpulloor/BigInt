@@ -560,7 +560,6 @@ export class BigInt {
     }
 
 
-
     // ************* PRIVATE HELPER METHODS GO HERE ************* //
 
     // Karatsuba Algorithm Implementation
@@ -632,6 +631,7 @@ export class BigInt {
         // Return num1 * num2 = (a + b) * (c + d) = ac + ad + bc + bd
         return ac.add(adPlusBd.add(bd));
     }
+
 
     // Checks if the number is zero or not
     private isZero() {
