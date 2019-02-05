@@ -89,6 +89,9 @@ export class BigInt {
 
         }
 
+        // Update numStr of the result
+        result.numStr = result.toString();
+
         return result;
     }
 
@@ -236,12 +239,25 @@ export class BigInt {
 
         }
 
+        // Update numStr of the result
+        result.numStr = result.toString();
+
         return result;
     }
 
     // TODO: Use a fast algorithm to slow to use add()
     public multiply(num2: BigInt) {
         
+
+        // Call the karatsuba function to compute the product
+        let result = this.karatsuba(num2);
+
+        // Set the sign bit
+        result.signedNumber = !(this.signedNumber && num2.signedNumber || !this.signedNumber && !num2.signedNumber);
+       
+
+        return result;
+
     }
 
     // ************* PUBLIC COMPARISON METHODS GO HERE ************* //
@@ -263,9 +279,12 @@ export class BigInt {
                 for (let i = 0; i < this.length(); i++) {
                     if (this.getIthDigit(i) < num2.getIthDigit(i)) {
                         return true;
+                    } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                        continue;
+                    } else {
+                        return false;
                     }
                 }
-                return false;
             }
 
         } else if (this.signedNumber && num2.signedNumber) { // if both numbers are negative
@@ -283,9 +302,12 @@ export class BigInt {
                 for (let i = 0; i < this.length(); i++) {
                     if (this.getIthDigit(i) > num2.getIthDigit(i)) {
                         return true;
+                    } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                        continue;
+                    } else {
+                        return false;
                     }
                 }
-                return false;
 
             }
 
@@ -294,6 +316,8 @@ export class BigInt {
         } else {
             return true;
         }
+
+        return false;
     }
 
     public lessThanEqual(num2: BigInt) {
@@ -311,16 +335,14 @@ export class BigInt {
                     // then we'll check num1[0] < num2[0], which is false(i.e 2 < 2)
                     // then we check num1[1] < num2[1], which is true, its here where we'll break the loop
                     for (let i = 0; i < this.length(); i++) {
-                        if (
-                            this.getIthDigit(i) < num2.getIthDigit(i) &&
-                            this.getIthDigit(i) !== num2.getIthDigit(i)
-                        ) {
+                        if (this.getIthDigit(i) < num2.getIthDigit(i)) {
                             return true;
+                        } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                            continue;
                         } else {
                             return false;
                         }
                     }
-                    return false;
                 }
             }
         } else if (this.signedNumber && num2.signedNumber) {
@@ -337,16 +359,14 @@ export class BigInt {
                     // then we'll check num1[0] < num2[0], which is false(i.e 2 < 2)
                     // then we check num1[1] < num2[1], which is true, its here where we'll break the loop
                     for (let i = 0; i < this.length(); i++) {
-                        if (
-                            this.getIthDigit(i) > num2.getIthDigit(i) &&
-                            this.getIthDigit(i) !== num2.getIthDigit(i)
-                        ) {
+                        if (this.getIthDigit(i) > num2.getIthDigit(i)) {
                             return true;
+                        } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                            continue;
                         } else {
                             return false;
                         }
                     }
-                    return false;
                 }
             }
         } else if (!this.signedNumber && num2.signedNumber) {
@@ -354,6 +374,8 @@ export class BigInt {
         } else {
             return true;
         }
+
+        return false;
     }
 
     public greaterThan(num2: BigInt) {
@@ -370,9 +392,12 @@ export class BigInt {
                 for (let i = 0; i < this.length(); i++) {
                     if (this.getIthDigit(i) > num2.getIthDigit(i)) {
                         return true;
+                    } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                        continue;
+                    } else {
+                        return false;
                     }
                 }
-                return false;
             }
         } else if (this.signedNumber && num2.signedNumber) {
             if (this.length() < num2.length()) {
@@ -387,15 +412,21 @@ export class BigInt {
                 for (let i = 0; i < this.length(); i++) {
                     if (this.getIthDigit(i) < num2.getIthDigit(i)) {
                         return true;
+                    } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                        continue;
+                    } else {
+                        return false;
                     }
                 }
-                return false;
             }
         } else if (!this.signedNumber && num2.signedNumber) {
             return true;
         } else {
             return false;
         }
+
+        
+        return false;
     }
 
     public greaterThanEqual(num2: BigInt) {
@@ -415,11 +446,10 @@ export class BigInt {
                     // then we'll check num1[0] < num2[0], which is false(i.e 2 < 2)
                     // then we check num1[1] < num2[1], which is true, its here where we'll break the loop
                     for (let i = 0; i < this.length(); i++) {
-                        if (
-                            this.getIthDigit(i) > num2.getIthDigit(i) && 
-                            this.getIthDigit(i) !== num2.getIthDigit(i)
-                        ) {
+                        if (this.getIthDigit(i) > num2.getIthDigit(i)) {
                             return true;
+                        } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                            continue;
                         } else {
                             return false;
                         }
@@ -442,11 +472,10 @@ export class BigInt {
                     // then we'll check num1[0] < num2[0], which is false(i.e 2 < 2)
                     // then we check num1[1] < num2[1], which is true, its here where we'll break the loop
                     for (let i = 0; i < this.length(); i++) {
-                        if (
-                            this.getIthDigit(i) < num2.getIthDigit(i) && 
-                            this.getIthDigit(i) !== num2.getIthDigit(i)
-                        ) {
+                        if (this.getIthDigit(i) < num2.getIthDigit(i)) {
                             return true;
+                        } else if (this.getIthDigit(i) === num2.getIthDigit(i)) {
+                            continue;
                         } else {
                             return false;
                         }
@@ -459,6 +488,9 @@ export class BigInt {
         } else {
             return false;
         }
+
+        
+        return false;
         
     }
 
@@ -513,6 +545,104 @@ export class BigInt {
 
     // ************* PRIVATE HELPER METHODS GO HERE ************* //
 
+    // Karatsuba Algorithm Implementation
+    private karatsuba(num2: BigInt): BigInt {
+
+        // Create positive clones of num1 and num2
+        let num1Clone = this.abs();
+        let num2Clone = num2.abs();
+
+        // Pad zeros infront of num1 or num2
+        if (num1Clone.totalNoOfDigits() > num2Clone.totalNoOfDigits()) {
+            num2Clone = num2Clone.paddZerosAtStart(num1Clone.totalNoOfDigits() - num2Clone.totalNoOfDigits());
+        } else if (num1Clone.totalNoOfDigits() < num2Clone.totalNoOfDigits()) {
+            num1Clone = num1Clone.paddZerosAtStart(num2Clone.totalNoOfDigits() - num1Clone.totalNoOfDigits());
+        }
+
+        // total no. of digits
+        let n = num1Clone.length();
+
+        // Base condition - breaks recursion
+        if (n === 1) {
+            let product = num1Clone.getIthDigit(0) * num2Clone.getIthDigit(0);
+            return new BigInt(product.toString());
+        }
+
+        // variables for storing split numbers
+        let a: BigInt, b: BigInt, c: BigInt, d: BigInt;
+
+        // check is no. of digits is odd
+        if (n % 2 !== 0) {
+            
+            // Pad num1 and num2 with a zero at the beginning
+            num1Clone = num1Clone.paddZerosAtStart(1);
+            num2Clone = num2Clone.paddZerosAtStart(1);
+
+            // Because of the padded zero the no. of digits will increase by one
+            n = n + 1;
+
+        }
+
+        // split num1
+        a = num1Clone.slice(0, n / 2);
+        b = num1Clone.slice(n / 2, n);
+
+        // split num2
+        c = num2Clone.slice(0, n / 2);
+        d = num2Clone.slice(n / 2, n);
+
+        // Compute ac, bd, ad+bc
+        let ac = a.karatsuba(c);
+        let bd = b.karatsuba(d);
+        // compute (a+b)(c+d) = ac + ad + bc + bd
+        let aPlusB = a.add(b); // (a+b)
+        let cPlusD = c.add(d); // (c+d)
+        let adPlusBd = aPlusB.karatsuba(cPlusD);
+
+        // // ac - bd
+        // let acMinusBd = ac.greaterThanEqual(bd) ? ac.subtract(bd) : bd.subtract(ac);
+
+        // Use Gauss Trick subtract ac and bd from adPlusBd to ad + bd
+        adPlusBd = adPlusBd.subtract(ac).subtract(bd);
+
+        // Pad 'n' zeros at the end of ac
+        ac = ac.paddZerosAtEnd(n);
+
+        // Pad 'n/2' zeros at the end adPlusBd. Handles odd number of digits
+        adPlusBd = adPlusBd.paddZerosAtEnd(Math.floor(n / 2));
+
+        // Return num1 * num2 = (a + b) * (c + d) = ac + ad + bc + bd
+        return ac.add(adPlusBd.add(bd));
+    }
+
+    // Gives a slice of the number from start to end
+    private slice(start: number, end: number) {
+        return new BigInt(this.numStr.slice(start, end));
+    }
+
+
+    // Padds zero's at the start of the number
+    private paddZerosAtStart(n: number) {
+        return new BigInt(this.formNZeros(n) + this.numStr);
+    }
+
+    // Padds zero's at the end of the number
+    private paddZerosAtEnd(n: number) {
+        return new BigInt(this.numStr + this.formNZeros(n));
+    }
+
+    // Used to form 'n' zeros which is used in paddZerosAtStart(), paddZerosAtEnd()
+    private formNZeros(n: number) {
+        // Form a 'n' zeros string
+        let zerosStr = '';
+
+        for (let i = 1; i <= n; i++) {
+            zerosStr += '0';
+        }
+
+        return zerosStr;
+    }
+
 
     // Gets the ith digit of BigInt
     private getIthDigit(i: number): number {
@@ -532,6 +662,7 @@ export class BigInt {
 
         return str;
     }
+
 
     // ************* PUBLIC GETTERS & SETTERS GO HERE ************* //
     
