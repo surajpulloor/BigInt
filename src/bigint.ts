@@ -1,12 +1,8 @@
 export class BigInt {
     constructor(num: string) {
+        // TODO: Find a way to remove excess zeros if the number is zero, converting the number here breaks multiply()
         // Set the fields
         this._numStr = num;
-        
-        // check if the number is zero i.e 0000000 if yes then reduce it to a single zero digit
-        if (this.isZero()) {
-            this._numStr = '0';
-        } 
 
         // Assign sign bit
         this._signedNumber = this.numStr[0] == '-' ? true : false;
@@ -252,7 +248,7 @@ export class BigInt {
         return result;
     }
 
-    
+
     public multiply(num2: BigInt) {
         
         let result: BigInt;
@@ -526,20 +522,22 @@ export class BigInt {
 
     // ************* PUBLIC HELPER METHODS GO HERE ************* //
 
+    // TODO: Need to refactor this function
     // Converts a BigInt number to String
     public toString() {
-
+        
         // Convert the numArray to a string and replace the commas with empty string
-        let numStr = this.numStr = this.numArray.toString().replace(/,+/g, '');
+        let numStr = this.numArray.toString().replace(/,+/g, '');
 
         // Check if the result is zero. if it is then return a single zero, else return a trimmed numStr
-        numStr = this.isZero() ? '0' : this.trim('0');
+        numStr = /^0+$/g.test(numStr) ? '0' : this.trim(numStr, '0');
 
         
         // Put in the minus sign if the result is negative
         numStr = this.signedNumber ? '-' + numStr : numStr;
 
         return numStr;
+
     }
 
     // Clone's a BigInt object
@@ -680,12 +678,11 @@ export class BigInt {
     }
 
     // Used for trimming zeros of the start of a number
-    private trim(mask: string) {
-        while (~mask.indexOf(this.numStr[0])) {
-            this.numStr = this.numStr.slice(1);
+    private trim(str:string, mask: string) {
+        while (~mask.indexOf(str[0])) {
+            str = str.slice(1);
         }
-
-        return this.numStr;
+        return str;
     }
 
 
