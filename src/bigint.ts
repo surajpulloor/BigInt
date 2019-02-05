@@ -2,6 +2,13 @@ export class BigInt {
     constructor(num: string) {
         // Set the fields
         this._numStr = num;
+        
+        // check if the number is zero i.e 0000000 if yes then reduce it to a single zero digit
+        if (this.isZero()) {
+            this._numStr = '0';
+        } 
+
+        // Assign sign bit
         this._signedNumber = this.numStr[0] == '-' ? true : false;
 
         // Form numArray
@@ -245,16 +252,29 @@ export class BigInt {
         return result;
     }
 
-    // TODO: Use a fast algorithm to slow to use add()
+    
     public multiply(num2: BigInt) {
         
+        let result: BigInt;
 
-        // Call the karatsuba function to compute the product
-        let result = this.karatsuba(num2);
+        if (!this.isZero() && !num2.isZero()) {
+            // Call the karatsuba function to compute the product
+            result = this.karatsuba(num2);
+        } else {
+            result = new BigInt('0');
+        }
+        
 
         // Set the sign bit
-        result.signedNumber = !(this.signedNumber && num2.signedNumber || !this.signedNumber && !num2.signedNumber);
+        result.signedNumber = !(
+                                    this.signedNumber && num2.signedNumber || 
+                                    !this.signedNumber && !num2.signedNumber || 
+                                    this.isZero() || 
+                                    num2.isZero()
+                            );
        
+        // Update numStr of result
+        result.numStr = result.toString();
 
         return result;
 
@@ -510,10 +530,10 @@ export class BigInt {
     public toString() {
 
         // Convert the numArray to a string and replace the commas with empty string
-        let numStr = this.numArray.toString().replace(/,+/g, '');
+        let numStr = this.numStr = this.numArray.toString().replace(/,+/g, '');
 
         // Check if the result is zero. if it is then return a single zero, else return a trimmed numStr
-        numStr = /^0+$/g.test(numStr) ? '0' : this.trim(numStr, '0');
+        numStr = this.isZero() ? '0' : this.trim('0');
 
         
         // Put in the minus sign if the result is negative
@@ -615,6 +635,11 @@ export class BigInt {
         return ac.add(adPlusBd.add(bd));
     }
 
+    // Checks if the number is zero or not
+    private isZero() {
+        return /^0+$/g.test(this.numStr);
+    }
+
     // Gives a slice of the number from start to end
     private slice(start: number, end: number) {
         return new BigInt(this.numStr.slice(start, end));
@@ -655,12 +680,12 @@ export class BigInt {
     }
 
     // Used for trimming zeros of the start of a number
-    private trim(str: string, mask: string) {
-        while (~mask.indexOf(str[0])) {
-            str = str.slice(1);
+    private trim(mask: string) {
+        while (~mask.indexOf(this.numStr[0])) {
+            this.numStr = this.numStr.slice(1);
         }
 
-        return str;
+        return this.numStr;
     }
 
 
