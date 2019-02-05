@@ -3,8 +3,8 @@ let bI = require('../dist/bigint');
 // let num1 = new bI.BigInt('504153625965821445899632548000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005');
 // let num2 = new bI.BigInt('152365214589963258896547125332658965874521452236589895648899856325412154788598521455589632511145785963254111852395475632115698547253622229999998547856923316589');
 
-let num1 = new bI.BigInt('1000');
-let num2 = new bI.BigInt('-100000');
+let num1 = new bI.BigInt('2552359');
+let num2 = new bI.BigInt('2538458');
 
 
 console.time('add');
@@ -18,6 +18,10 @@ console.timeEnd('subtract');
 console.time('reverseSubtract');
 console.log('num2 - num1: ' + num2.subtract(num1).toString());
 console.timeEnd('reverseSubtract');
+
+console.time('multiplication');
+console.log('num1 * num2: ' + num1.multiply(num2).toString());
+console.timeEnd('multiplication');
 
 
 console.time('greaterThan');
