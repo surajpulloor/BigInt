@@ -18,10 +18,13 @@ but still for very very very(number > 2^64) large numbers it gives back Infinity
 * Missing some key artimetic operations
 
 ## Dependencies
-* Typescript v3.2.4 or greater
+* Typescript v3.2.4 or greater(install it globally)
 * Node & Npm
 * Jest Tesing Framework (for unit testing)
 * Javascript Engine/Runtime which has atleast implemented the ES5 standard
+
+## How to install dependencies/packages
+* ``` npm install ```
 
 ## How to build & watch the src files
 * The build and watch command's are written as npm scripts. Therefore you can build and watch with the following
@@ -46,6 +49,7 @@ but still for very very very(number > 2^64) large numbers it gives back Infinity
 * Arthimetic Ops
   * add
   * subtract
+  * multiply (use's the karatsuba algorithm for fast multiplication)
 * Comparsion Ops
   * lessThan
   * lessThanEqual
@@ -54,6 +58,5 @@ but still for very very very(number > 2^64) large numbers it gives back Infinity
   * equal
 
 ## TODO Operations
-* multiply
 * divide
 * mod
