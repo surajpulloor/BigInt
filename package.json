@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "build": "tsc -p .",
     "watch": "tsc -p . -w"
   },
