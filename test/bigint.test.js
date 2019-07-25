@@ -1,11 +1,11 @@
-const BigInt = require('../dist/bigint');
+const bi = require('../dist/bigint');
 
 // Group 1
 describe('num1 === num2', () => {
 
     // test variables
-    let num1 = new BigInt('2413641');
-    let num2 = new BigInt('2413641');
+    let num1 = new bi.BigInt('2413641');
+    let num2 = new bi.BigInt('2413641');
 
     // tests
     // Test #1
@@ -57,8 +57,8 @@ describe('num1 === num2', () => {
 // Group 2
 describe('num1 < 0 && num2 < 0', () => {
     
-    let num1 = new bI.BigInt('-2552359');
-    let num2 = new bI.BigInt('-2538458');
+    let num1 = new bi.BigInt('-2552359');
+    let num2 = new bi.BigInt('-2538458');
 
     // Test #1
     it('Adding num1 + num2', () => {
@@ -106,11 +106,12 @@ describe('num1 < 0 && num2 < 0', () => {
     });
 });
 
+// Group 3
 describe('num1 < 0 && num2 > 0', () => {
     
     // test variables
-    let num1 = new bI.BigInt('-2552359');
-    let num2 = new bI.BigInt('2538458');
+    let num1 = new bi.BigInt('-2552359');
+    let num2 = new bi.BigInt('2538458');
 
 
     // Test #1
@@ -159,10 +160,11 @@ describe('num1 < 0 && num2 > 0', () => {
     });
 });
 
+// Group 4
 describe('num1 > 0 && num2 < 0', () => {
     // test variables
-    let num1 = new bI.BigInt('2552359');
-    let num2 = new bI.BigInt('-2538458');
+    let num1 = new bi.BigInt('2552359');
+    let num2 = new bi.BigInt('-2538458');
 
 
     // Test #1
@@ -211,11 +213,12 @@ describe('num1 > 0 && num2 < 0', () => {
     });
 });
 
+// Group 5
 describe('num1 > 0 && num2 > 0', () => {
     
     // test variables
-    let num1 = new bI.BigInt('2552359');
-    let num2 = new bI.BigInt('2538458');
+    let num1 = new bi.BigInt('2552359');
+    let num2 = new bi.BigInt('2538458');
 
 
     // Test #1
