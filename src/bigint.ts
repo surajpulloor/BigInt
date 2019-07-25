@@ -1,4 +1,4 @@
-export default class BigInt {
+export class BigInt {
     constructor(num: string) {
         // TODO: Find a way to remove excess zeros if the number is zero, converting the number here breaks multiply()
         // Set the fields
