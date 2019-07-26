@@ -1,4 +1,4 @@
-export class BigInt {
+class BigInt {
     constructor(num: string) {
         // TODO: Find a way to remove excess zeros if the number is zero, converting the number here breaks multiply()
         // Set the fields
@@ -721,3 +721,5 @@ export class BigInt {
     private _signedNumber: boolean;
     private _numArray: Array<number>;
 }
+
+export = BigInt;
